@@ -1,9 +1,5 @@
-# Bulut Bilişim 2. Ödevi
+# Container Tabanlı Bulut Ortamında Netflix Veri Seti Kullanılarak Web Uygulaması Geliştirilmesi
 
-_Ahmet Buğra Önsöz - Barış Ceylan - Mehmet Emin Uçan_
-
-```
-B221200032 B221200005 B221200034
 ```
 ## 1. Projenin Tanımı
 
@@ -47,51 +43,6 @@ içeriklerin bir veritabanından çekilmesi ve kullanıcı etkileşimlerinin kay
 mantıkla birebir örtüşmektedir.
 
 
-### Görev Dağılımı
-
-**Ahmet Buğra Önsöz – Bulut Altyapısı ve Sistem Yönetimi**
-
-```
-AWS EC2 sanal makinesinin oluşturulması ve yapılandırılması
-Uygun bölge (Region) ve kullanılabilirlik alanı (Availability Zone) seçimi
-Ubuntu Server kurulumu ve temel sistem ayarlarının yapılması
-SSH erişiminin sağlanması ve anahtar tabanlı bağlantı yapılandırması
-AWS Security Group ve Linux UFW firewall ayarlarının yapılması
-Instance başlatma, durdurma, yeniden başlatma işlemlerinin yönetilmesi
-Disk/volume işlemleri ve veri taşıma süreçlerinin gerçekleştirilmesi
-Docker altyapısının kurulması ve container mimarisinin oluşturulması
-```
-```
-Sorumluluk Alanı: Bulut altyapısı, Linux sistem yönetimi, güvenlik, Docker
-```
-**Barış Ceylan – Uygulama ve Veritabanı Geliştirme**
-
-```
-Docker network yapılandırmasının yapılması
-MySQL veritabanının Docker container olarak kurulması
-Veritabanı kullanıcıları, yetkiler ve tabloların oluşturulması
-Flask tabanlı Python web uygulamasının geliştirilmesi
-Uygulama ile veritabanı arasındaki bağlantının sağlanması
-Veritabanı okuma/yazma işlemlerinin test edilmesi
-```
-```
-Sorumluluk Alanı: Backend geliştirme, Docker, veritabanı yönetimi
-```
-**Mehmet Emin Uçan – Uygulama ve Veri Entegrasyonu**
-
-```
-Kaggle platformundan uygun veri setinin seçilmesi ve incelenmesi
-Veri setinin uygulama içerisine entegre edilmesi
-Flask tabanlı Python web uygulamasının geliştirilmesi
-Uygulama ile veritabanı arasındaki bağlantının sağlanması
-Her HTTP isteğinde rastgele veri seçimi ve işlenmesi sürecinin tasarlanması
-SQL sorguları ile veri doğrulama ve kayıt sayılarının kontrol edilmesi
-Uygulamanın fonksiyonel testlerinin yapılması
-```
-```
-Sorumluluk Alanı: Backend geliştirme, Python, Veri Entegrasyonu
-```
-
 ### Proje Sürecinde İzlenen Adımlar
 
 1. Proje için uygun bulut altyapısı belirlenmiş ve AWS üzerinde bir EC2 sanal makinesi
@@ -108,8 +59,8 @@ Sorumluluk Alanı: Backend geliştirme, Python, Veri Entegrasyonu
 7. Flask tabanlı Python web uygulaması geliştirilmiş ve Docker container olarak çalıştırılmıştır.
     **_(docker run -d --name webapp --network appnet \_**
 8. **_-p 80:5000 mywebapp)_**
-9. Kaggle platformundan alınan gerçek bir veri seti uygulamaya entegre edilmiştir. **_(import_**
-    **_kagglehub, path = kagglehub.dataset_download("shivamb/netflix-shows"))_**
+9. Kaggle platformundan alınan gerçek bir veri seti uygulamaya entegre edilmiştir.
+**_(import__kagglehub, path = kagglehub.dataset_download("shivamb/netflix-shows"))_**
 10. Uygulama, her HTTP isteğinde veri setinden rastgele kayıtlar seçerek bu verileri MySQL
     veritabanına kaydetmektedir.
 11. Veritabanına eklenen veriler SQL sorguları ile doğrulanmış ve uygulamanın doğru şekilde
