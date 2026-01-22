@@ -1,145 +1,133 @@
-# Container Tabanlı Bulut Ortamında Netflix Veri Seti Kullanılarak Web Uygulaması Geliştirilmesi
+# Developing a Web Application in a Container-Based Cloud Environment Using the Netflix Dataset
 
-## 1. Projenin Tanımı
+## 1. Project Description
 
-Bu proje, bulut bilişim altyapısı üzerinde çalışan, container tabanlı bir web uygulamasının uçtan uca
-geliştirilmesini ve dağıtımını konu almaktadır. Proje kapsamında AWS EC2 üzerinde Ubuntu Server
-kullanılarak bir sanal makine oluşturulmuş, Docker teknolojisi ile web uygulaması ve veritabanı
-servisleri birbirinden bağımsız container’lar halinde çalıştırılmıştır.
+This project focuses on the end-to-end development and deployment of a container-based web application
+running on a cloud computing infrastructure. Within the scope of the project, a virtual machine was created
+on AWS EC2 using Ubuntu Server, and Docker technology was used to run the web application and database
+services as independent containers.
 
-Uygulama, gerçek bir veri kaynağı olan Kaggle platformundan alınan bir veri seti ile çalışmakta ve her
-kullanıcı isteğinde verileri işleyerek bir veritabanına kaydetmektedir. Böylece, hem bulut ortamında
-uygulama dağıtımı hem de veri odaklı bir web servisinin nasıl geliştirileceği pratik olarak gösterilmiştir.
+The application works with a dataset obtained from Kaggle, which is a real data source, and processes the
+data on each user request, then stores it in a database. In this way, the project practically demonstrates both
+application deployment in a cloud environment and how a data-driven web service can be developed.
 
-## 2. Projenin Amacı
+## 2. Project Objective
 
-Bu projenin temel amacı, teorik olarak öğrenilen bulut bilişim, sanallaştırma ve container
-kavramlarının gerçek bir senaryo üzerinde uygulanmasını sağlamaktır. Proje ile birlikte;
+The main objective of this project is to apply the cloud computing, virtualization, and container concepts
+learned theoretically to a real-world scenario. With this project, it was aimed to gain hands-on experience in
+the following areas;
 
-Bulut ortamında sanal makine yönetimi,
-Container tabanlı uygulama geliştirme,
-Web uygulaması ile veritabanı entegrasyonu,
-Güvenlik ve ağ yapılandırmaları
+Virtual machine management in a cloud environment,
+Container-based application development,
+Web application and database integration,
+Security and network configurations
 
-gibi konularda uygulamalı deneyim kazanılması hedeflenmiştir.
+## 3. Real-World Use Cases
 
-## 3. Projenin Gündelik Hayattaki Kullanım Alanı
+The architecture developed in this project forms the foundation of many systems that are widely used in real life.
+In daily life, services such as;
 
-Bu projede geliştirilen yapı, gerçek hayatta yaygın olarak kullanılan birçok sistemin temelini
-oluşturmaktadır. Günlük hayatta kullanılan;
+E-commerce websites,
+Movie and TV platforms,
+News websites,
+Social media applications
 
-E-ticaret siteleri,
-Film ve dizi platformları,
-Haber siteleri,
-Sosyal medya uygulamaları
+operate with a similar architecture.
 
-gibi servisler benzer bir mimari ile çalışmaktadır.
-
-Örneğin, bir kullanıcı bir film platformunu her yenilediğinde farklı içeriklerin önerilmesi, arka planda bu
-içeriklerin bir veritabanından çekilmesi ve kullanıcı etkileşimlerinin kaydedilmesi bu projede uygulanan
-mantıkla birebir örtüşmektedir.
+For example, when a user refreshes a movie platform and different content is recommended each time,
+retrieving this content from a database in the background and recording user interactions directly matches
+the logic implemented in this project.
 
 
-### Proje Sürecinde İzlenen Adımlar
+### Steps Followed During the Project
 
-1. Proje için uygun bulut altyapısı belirlenmiş ve AWS üzerinde bir EC2 sanal makinesi
-    oluşturulmuştur.
-2. EC2 üzerinde Ubuntu Server işletim sistemi kurulmuş ve temel sistem yapılandırmaları
-    gerçekleştirilmiştir.
-3. Sunucuya güvenli erişim sağlamak amacıyla SSH anahtar tabanlı bağlantı yapılandırılmıştır.
-4. Container tabanlı mimariyi kullanmak için Docker kurulmuş ve gerekli servislerin çalıştırılacağı
-    ortam hazırlanmıştır. _(_ **_sudo apt install docker.io -y , sudo systemctl start docker_** _)_
-5. Web uygulaması ile veritabanının birbiriyle iletişim kurabilmesi için özel bir Docker ağı
-    oluşturulmuştur. **_(docker network create appnet)_**
-6. MySQL veritabanı, Docker container olarak ayağa kaldırılmış ve uygulama için gerekli veritabanı
-    ve kullanıcılar tanımlanmıştır. **_(docker run -d --name mysql-db --network appnet)_**
-7. Flask tabanlı Python web uygulaması geliştirilmiş ve Docker container olarak çalıştırılmıştır.
+1. A suitable cloud infrastructure was selected for the project and an EC2 virtual machine was created on AWS.
+2. Ubuntu Server was installed on the EC2 instance and basic system configurations were completed.
+3. SSH key-based authentication was configured to provide secure access to the server.
+4. Docker was installed to use a container-based architecture, and the environment required to run the services
+    was prepared. _(_ **_sudo apt install docker.io -y , sudo systemctl start docker_** _)_
+5. A dedicated Docker network was created to allow the web application and the database to communicate
+    with each other. **_(docker network create appnet)_**
+6. The MySQL database was started as a Docker container, and the necessary database and users were defined
+    for the application. **_(docker run -d --name mysql-db --network appnet)_**
+7. A Flask-based Python web application was developed and run as a Docker container.
     **_(docker run -d --name webapp --network appnet \_**
 8. **_-p 80:5000 mywebapp)_**
-9. Kaggle platformundan alınan gerçek bir veri seti uygulamaya entegre edilmiştir.
+9. A real dataset obtained from Kaggle was integrated into the application.
 **_(import__kagglehub, path = kagglehub.dataset_download("shivamb/netflix-shows"))_**
-10. Uygulama, her HTTP isteğinde veri setinden rastgele kayıtlar seçerek bu verileri MySQL
-    veritabanına kaydetmektedir.
-11. Veritabanına eklenen veriler SQL sorguları ile doğrulanmış ve uygulamanın doğru şekilde
-    çalıştığı test edilmiştir. **_(INSERT INTO netflix_titles (title, country, release_year), VALUES_**
+10. The application selects random records from the dataset on each HTTP request and stores them in the MySQL
+    database.
+11. The inserted data was verified using SQL queries, and the application was tested to confirm it works correctly.
+    **_(INSERT INTO netflix_titles (title, country, release_year), VALUES_**
     **_('Example Movie', 'USA', 2023);)_**
-12. AWS Security Group ve Linux firewall ayarları yapılarak uygulamanın dış dünyaya güvenli
-    şekilde açılması sağlanmıştır. **_(sudo ufw allow 80 , sudo ufw allow 22)_**
-13. Uygulama tarayıcı üzerinden test edilmiş ve sistemin uçtan uca sorunsuz çalıştığı
-    gözlemlenmiştir. **_(curl [http://public_ipv4_address)](http://public_ipv4_address))_**
+12. AWS Security Group rules and Linux firewall settings were configured to securely expose the application to the
+    outside world. **_(sudo ufw allow 80 , sudo ufw allow 22)_**
+13. The application was tested via a web browser and it was observed that the system works smoothly end-to-end.
+    **_(curl [http://public_ipv4_address)](http://public_ipv4_address))_**
 
 
-#### Karşılaşılan Problemler ve Çözümleri
+#### Problems Encountered and Solutions
 
-Proje geliştirme sürecinde hem altyapı hem de uygulama katmanında çeşitli problemlerle
-karşılaşılmıştır. Bu problemler, özellikle Python tabanlı web uygulaması ile MySQL veritabanı
-arasındaki entegrasyon sürecinde daha belirgin hale gelmiştir.
+During the project development process, various problems were encountered at both the infrastructure and
+application layers. These issues became more apparent, especially during the integration process between the
+Python-based web application and the MySQL database.
 
-İlk olarak, Python uygulamasının MySQL veritabanına bağlanması sırasında bağlantı hataları
-yaşanmıştır. Bu durumun temel sebebi, Docker container’lar arasında ağ yapılandırmasının doğru
-şekilde yapılmaması ve veritabanı servisinin uygulamadan önce tam olarak hazır olmamasıdır. Sorun,
-container’lar için özel bir Docker ağı oluşturularak ve uygulamanın veritabanı bağlantısını deneme–
-bekleme mantığıyla kurması sağlanarak çözülmüştür.
+First, connection errors occurred while the Python application was connecting to the MySQL database. The main
+reason for this was incorrect network configuration between Docker containers and the database service not being
+fully ready before the application started. The issue was resolved by creating a dedicated Docker network for the
+containers and ensuring that the application established the database connection using a retry–wait logic.
 
-Bunun yanında, SQL tablolarının uygulama tarafından otomatik olarak oluşturulması ve veri ekleme
-işlemleri sırasında veri tipleriyle ilgili uyumsuzluklar gözlemlenmiştir. Özellikle metin uzunlukları ve
-tarih alanlarında hatalar alınmış, bu durum tablo şemasının yeniden düzenlenmesiyle giderilmiştir.
+In addition, incompatibilities related to data types were observed during automatic table creation and data insertion
+operations performed by the application. Errors were especially encountered in text length and date fields, and this
+was fixed by redesigning the table schema.
 
-Ayrıca, her HTTP isteğinde veritabanına veri yazılması sırasında eş zamanlı erişim ve bağlantı
-sürekliliği problemleri yaşanmıştır. Bu sorun, veritabanı bağlantılarının kontrollü şekilde açılıp
-kapatılması ve SQL sorgularının sadeleştirilmesiyle çözülmüştür.
+Moreover, while writing data to the database on each HTTP request, concurrency and connection persistence problems
+were experienced. This issue was resolved by opening and closing database connections in a controlled manner and
+simplifying SQL queries.
 
-Son olarak, SSH bağlantılarının zaman zaman kopması ve erişim problemleri yaşanmıştır. Bu durum,
-bulut ortamlarında IP adresi değişimi ve kaynak kısıtları nedeniyle ortaya çıkmış, instance yeniden
-başlatma ve disk taşıma yöntemleriyle giderilmiştir.
-
-
-## Öğrenilen Dersler
-
-Bu proje, yalnızca bir web uygulaması geliştirme süreci değil, aynı zamanda bulut tabanlı sistemlerin
-bütüncül olarak nasıl çalıştığını anlamaya yönelik önemli kazanımlar sağlamıştır.
-
-Öncelikle, bulut ortamlarında bir uygulamanın çalışabilmesi için yalnızca kodun yeterli olmadığı, ağ,
-güvenlik, depolama ve servis yönetimi gibi birçok bileşenin birlikte düşünülmesi gerektiği öğrenilmiştir.
-AWS EC2 üzerinde yapılan çalışmalar, sanal makine yönetimi ve bulut kaynaklarının doğru
-yapılandırılmasının uygulama kararlılığı açısından kritik olduğunu göstermiştir.
-
-Docker teknolojisi sayesinde, uygulama ve veritabanı servislerinin birbirinden bağımsız olarak
-çalıştırılabilmesi ve bu yapıların taşınabilir hale gelmesi önemli bir deneyim olmuştur. Container
-mimarisi, uygulama dağıtım süreçlerini kolaylaştırmış ve sistemin tekrar kurulabilirliğini artırmıştır.
-
-Python ve SQL entegrasyonu sürecinde, uygulama katmanı ile veritabanı katmanı arasındaki
-iletişimin dikkatli şekilde tasarlanması gerektiği görülmüştür. Hatalı sorguların veya yanlış bağlantı
-yönetiminin uygulamanın tamamını etkileyebileceği anlaşılmıştır.
-
-Ayrıca, gerçek bir veri setiyle çalışmanın uygulamayı daha anlamlı hale getirdiği ve teorik bilgilerin
-pratikte karşılığını görmeyi sağladığı gözlemlenmiştir.
+Finally, SSH connections occasionally dropped and access issues occurred. This was caused by IP address changes and
+resource limitations in cloud environments, and it was resolved by restarting the instance and using disk migration
+methods.
 
 
-##### Olası İyileştirmeler
+## Lessons Learned
 
-```
-Bu proje, mevcut haliyle temel bir bulut tabanlı web uygulaması mimarisini başarıyla ortaya
-koymaktadır. Ancak sistemin daha ileri seviyelere taşınabilmesi için çeşitli iyileştirme alanları
-bulunmaktadır.
-```
-İlerleyen çalışmalarda Docker Compose kullanılarak tüm servislerin tek bir yapı dosyası üzerinden
-yönetilmesi sağlanabilir. Bu sayede kurulum süreci daha hızlı ve hatasız hale getirilebilir. Ayrıca,
-MySQL veritabanı AWS RDS gibi yönetilen bir servis üzerine taşınarak bakım ve yedekleme süreçleri
-kolaylaştırılabilir.
+This project provided important gains not only as a web application development process but also as a way to
+understand how cloud-based systems work holistically.
 
-```
-Bununla birlikte, Elastic IP ve Load Balancer gibi AWS servisleri kullanılarak uygulamanın
-erişilebilirliği ve sürekliliği artırılabilir. Veri setlerinin ve uygulama çıktılarının AWS S3 üzerinde
-yedeklenmesi de sistemin güvenilirliğini yükseltecek bir diğer iyileştirme olarak değerlendirilebilir.
-```
-###### Sonuç
+First, it was learned that code alone is not enough for an application to run in cloud environments; many components
+such as networking, security, storage, and service management must be considered together. The work carried out on
+AWS EC2 showed that virtual machine management and correct configuration of cloud resources are critical for
+application stability.
 
-```
-Sonuç olarak bu proje, modern yazılım sistemlerinde yaygın olarak kullanılan bulut altyapısı,
-container mimarisi ve veritabanı entegrasyonunu gerçek bir senaryo üzerinden ele almıştır. Proje
-sürecinde karşılaşılan problemler ve geliştirilen çözümler, bulut tabanlı uygulama geliştirme
-konusunda önemli bir öğrenme deneyimi sağlamıştır. Bu yönüyle çalışma, hem akademik hem de
-sektörel açıdan uygulanabilir bir örnek niteliği taşımaktadır.
-```
+Thanks to Docker technology, running the application and database services independently and making them portable
+was an important experience. The container architecture simplified deployment processes and increased the
+reproducibility of the system.
 
+During the Python and SQL integration process, it was observed that communication between the application layer and
+the database layer must be designed carefully. It was understood that incorrect queries or poor connection
+management can affect the entire application.
+
+It was also observed that working with a real dataset made the application more meaningful and helped demonstrate
+the practical value of theoretical knowledge.
+
+
+##### Possible Improvements
+
+This project successfully presents a basic cloud-based web application architecture in its current form.
+However, there are several areas for improvement in order to take the system to more advanced levels.
+
+In future work, Docker Compose can be used to manage all services through a single configuration file. This can make
+the setup process faster and less error-prone. In addition, the MySQL database can be migrated to a managed service
+such as AWS RDS to simplify maintenance and backup processes.
+
+Moreover, AWS services such as Elastic IP and Load Balancer can be used to increase the availability and continuity
+of the application. Backing up datasets and application outputs on AWS S3 can also be considered as another
+improvement that would increase the reliability of the system.
+
+###### Conclusion
+
+In conclusion, this project addressed cloud infrastructure, container architecture, and database integration—commonly
+used in modern software systems—through a real-world scenario. The problems encountered during the project and the
+solutions developed provided a valuable learning experience in cloud-based application development. In this respect,
+the study represents an example that is applicable both academically and within the industry.
