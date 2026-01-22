@@ -1,6 +1,5 @@
 # Container Tabanlı Bulut Ortamında Netflix Veri Seti Kullanılarak Web Uygulaması Geliştirilmesi
 
-```
 ## 1. Projenin Tanımı
 
 Bu proje, bulut bilişim altyapısı üzerinde çalışan, container tabanlı bir web uygulamasının uçtan uca
@@ -17,12 +16,11 @@ uygulama dağıtımı hem de veri odaklı bir web servisinin nasıl geliştirile
 Bu projenin temel amacı, teorik olarak öğrenilen bulut bilişim, sanallaştırma ve container
 kavramlarının gerçek bir senaryo üzerinde uygulanmasını sağlamaktır. Proje ile birlikte;
 
-```
 Bulut ortamında sanal makine yönetimi,
 Container tabanlı uygulama geliştirme,
 Web uygulaması ile veritabanı entegrasyonu,
 Güvenlik ve ağ yapılandırmaları
-```
+
 gibi konularda uygulamalı deneyim kazanılması hedeflenmiştir.
 
 ## 3. Projenin Gündelik Hayattaki Kullanım Alanı
@@ -30,12 +28,11 @@ gibi konularda uygulamalı deneyim kazanılması hedeflenmiştir.
 Bu projede geliştirilen yapı, gerçek hayatta yaygın olarak kullanılan birçok sistemin temelini
 oluşturmaktadır. Günlük hayatta kullanılan;
 
-```
 E-ticaret siteleri,
 Film ve dizi platformları,
 Haber siteleri,
 Sosyal medya uygulamaları
-```
+
 gibi servisler benzer bir mimari ile çalışmaktadır.
 
 Örneğin, bir kullanıcı bir film platformunu her yenilediğinde farklı içeriklerin önerilmesi, arka planda bu
